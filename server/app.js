@@ -99,17 +99,17 @@ app.post('/login', (req, res, next) => {
     .then(() => {
       res.location('/').sendStatus(200);
     })
-    .catch(string => {
-      if (string === 'WRONG_PW') {
+    .catch(error => {
+      if (error === 'USER_NOT_EXIST') {
+        // User doesn't exist
+        res.location('/login').sendStatus(403);
+      } else if (error === 'WRONG_PW') {
         // Password wrong
         res.location('/login').sendStatus(403);
       } else {
         res.sendStatus(500);
       }
-
     });
-  // Create a new session.
-
 });
 
 

@@ -47,13 +47,21 @@ class Sessions extends Model {
 
   /**
    * Creates a new session. Within this function, a hash is randomly generated.
+   * @param {String} username The usename associated with the new session.
    * @returns {Promise<Object>} A promise that is fulfilled with the results of
-   * an insert query or rejected with the error that occured.
+   * adding to the sessions table.
    */
-  create() {
+  create(username) {
     let data = utils.createRandom32String();
     let hash = utils.createHash(data);
-    return super.create.call(this, { hash });
+    Users.getId(username)
+      .then((userData) => {
+        return userData.id;
+      })
+      .then((userId) => {
+        return super.create.call(this, { hash, userId });
+      });
+
   }
 }
 

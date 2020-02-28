@@ -1,5 +1,6 @@
 const utils = require('../lib/hashUtils');
 const Model = require('./model');
+const Sessions = require('./session');
 
 /**
  * Users is a class with methods to interact with the users table, which
@@ -56,22 +57,35 @@ class Users extends Model {
    */
 
   login({ username, password }) {
-    super.get.call(this, { 'username': username })
-      // .catch(error => {
-      //   if
-      // })
+    return super.get.call(this, { 'username': username })
       .then(userData => {
-        return Users.compare(password, userData.password, userData.salt);
+        if (userData) {
+          return module.exports.compare(password, userData.password, userData.salt);
+        } else {
+          throw 'USER_NOT_EXIST';
+        }
       })
       .then(correctPW => {
         if (correctPW) {
-          return '';// New session
+          console.log('=====Samatha?======', Sessions);
+          return Sessions.create(username);// New session
         } else {
           throw 'WRONG_PW';
         }
       });
   }
 
+  /**
+   * Attempts to log a user in.
+   *
+   * @param {String} username - The username to look up.
+   * @returns {Promise<Object>} A promise that is fulfilled with the user's ID
+   * or rejected with the error that occured.
+   */
+
+  getId(username) {
+    return super.get.call(this, { username });
+  }
 
 }
 
