@@ -44,6 +44,35 @@ class Users extends Model {
 
     return super.create.call(this, newUser);
   }
+
+  /**
+   * Attempts to log a user in.
+   *
+   * @param {Object} user - The user object.
+   * @param {string} user.username - The user's username.
+   * @param {string} user.password - The plaintext password.
+   * @returns {Promise<Object>} A promise that is fulfilled with the result of
+   * the login or rejected with the error that occured.
+   */
+
+  login({ username, password }) {
+    super.get.call(this, { 'username': username })
+      // .catch(error => {
+      //   if
+      // })
+      .then(userData => {
+        return Users.compare(password, userData.password, userData.salt);
+      })
+      .then(correctPW => {
+        if (correctPW) {
+          return '';// New session
+        } else {
+          throw 'WRONG_PW';
+        }
+      });
+  }
+
+
 }
 
 module.exports = new Users();
