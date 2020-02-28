@@ -47,7 +47,7 @@ class Sessions extends Model {
 
   /**
    * Creates a new session. Within this function, a hash is randomly generated.
-   * @param {String} username The usename associated with the new session.
+   * @param {String} username The username associated with the new session.
    * @returns {Promise<Object>} A promise that is fulfilled with the results of
    * adding to the sessions table.
    */
@@ -65,4 +65,4 @@ class Sessions extends Model {
   }
 }
 
-module.exports = new Sessions();
+module.exports.foo = new Sessions();

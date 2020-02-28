@@ -67,8 +67,7 @@ class Users extends Model {
       })
       .then(correctPW => {
         if (correctPW) {
-          console.log('=====Samatha?======', Sessions);
-          return Sessions.create(username);// New session
+          return Sessions.foo.create(username); // New session
         } else {
           throw 'WRONG_PW';
         }
