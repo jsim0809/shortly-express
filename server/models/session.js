@@ -51,18 +51,13 @@ class Sessions extends Model {
    * @returns {Promise<Object>} A promise that is fulfilled with the results of
    * adding to the sessions table.
    */
-  create(username) {
+
+  create() {
     let data = utils.createRandom32String();
     let hash = utils.createHash(data);
-    Users.getId(username)
-      .then((userData) => {
-        return userData.id;
-      })
-      .then((userId) => {
-        return super.create.call(this, { hash, userId });
-      });
-
+    return super.create.call(this, { hash });
   }
+
 }
 
-module.exports.foo = new Sessions();
+module.exports = new Sessions();

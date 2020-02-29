@@ -1,22 +1,15 @@
 const parseCookies = (req, res, next) => {
+  var key;
+  var value;
 
-  if (!req.headers.Cookie) {
-    // req.cookies =
+  if (req.headers.cookie) {
+    var allCookies = req.headers.cookie.split('; ');
+    allCookies.forEach((cookie) => {
+      var splitCookie = cookie.split('=');
+      req.cookies[splitCookie[0]] = splitCookie[1];
+    });
   }
-
-
-};
-
-const findShortlyId = (string) => {
-  let startIndex = 0;
-  let keyStart = string.indexOf('=');
-
-  if (keyStart === -1) {
-    return null;
-  } else {
-    string.slice(keyStart, string.indexOf(';'));
-  }
-
+  next();
 };
 
 

@@ -67,7 +67,7 @@ class Users extends Model {
       })
       .then(correctPW => {
         if (correctPW) {
-          return Sessions.foo.create(username); // New session
+          return ''; //Sessions.foo.create(username); // FIX THIS
         } else {
           throw 'WRONG_PW';
         }
@@ -75,7 +75,6 @@ class Users extends Model {
   }
 
   /**
-   * Attempts to log a user in.
    *
    * @param {String} username - The username to look up.
    * @returns {Promise<Object>} A promise that is fulfilled with the user's ID
