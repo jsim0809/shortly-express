@@ -47,7 +47,6 @@ class Sessions extends Model {
 
   /**
    * Creates a new session. Within this function, a hash is randomly generated.
-   * @param {String} username The username associated with the new session.
    * @returns {Promise<Object>} A promise that is fulfilled with the results of
    * adding to the sessions table.
    */
